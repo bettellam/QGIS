@@ -365,10 +365,10 @@ void QgsGpsInformationWidget::gpsDisconnected()
 
 void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &info )
 {
-  QVector<QPointF> data;
 
   if ( mStackedWidget->currentIndex() == 1 && info.satInfoComplete ) //signal
   {
+    QVector<QPointF> data;
     mPlot->setAxisScale( QwtPlot::xBottom, 0, info.satellitesInView.size() );
   } //signal
 #ifdef WITH_QWTPOLAR
