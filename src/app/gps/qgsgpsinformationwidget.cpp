@@ -429,28 +429,25 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         QBrush textBgBrush( bg );
         
         QwtSymbol::Style symbolStyle;
-        switch(currentInfo.satType)
-        {
-          case "P":
-            symbolStyle = QwtSymbol::Ellipse; // GPS;
-            break;
-          case "L":
-            symbolStyle = QwtSymbol::Rect; //GLONAS;
-            break;
-          case "B":
-            symbolStyle = QwtSymbol::Diamond; // BEIDOU;
-            break;
-          case "A":
-            symbolStyle = QwtSymbol::Triangle; // GALILEO;
-            break;
-          case "Q":
-            symbolStyle = QwtSymbol::Cross; // QZSS;
-            break;
-          default:
-            symbolStyle = QwtSymbol::Ellipse; // N, S;
-            break;
+        if ( currentInfo.satType == 'P' ) {
+          symbolStyle = QwtSymbol::Ellipse; // GPS;
         }
-        
+        else if ( currentInfo.satType == 'L' ) {
+          symbolStyle = QwtSymbol::Rect; // GLONASS;
+        }
+        else if ( currentInfo.satType == 'B' ) {
+          symbolStyle = QwtSymbol::Diamond; // BEIDOU;
+        }
+        else if ( currentInfo.satType == 'A' ) {
+          symbolStyle = QwtSymbol::Triangle; //GALILEO
+        }
+        else if ( currentInfo.satType == 'Q' ) {
+          symbolStyle = QwtSymbol::Cross; // QZSS
+        }
+        else {
+          symbolStyle = QwtSymbol::Ellipse; // N, S;
+        }
+       
 #if (QWT_POLAR_VERSION<0x010000)
         mypMarker->setSymbol( QwtSymbol( symbolStyle,
                                          symbolBrush, QPen( myColor ), markerSize ) );
