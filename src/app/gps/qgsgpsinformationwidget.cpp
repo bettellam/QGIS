@@ -42,6 +42,7 @@
 #include <qwt_polar_grid.h>
 #include <qwt_polar_curve.h>
 #include <qwt_scale_engine.h>
+#include <qwt_symbol.h>
 #endif
 
 #include <QMessageBox>
@@ -365,12 +366,12 @@ void QgsGpsInformationWidget::gpsDisconnected()
 
 void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &info )
 {
+  QVector<QPointF> data;
 
-  if ( mStackedWidget->currentIndex() == 1 && info.satInfoComplete ) //signal
-  {
-    QVector<QPointF> data;
-    mPlot->setAxisScale( QwtPlot::xBottom, 0, info.satellitesInView.size() );
-  } //signal
+  // if ( mStackedWidget->currentIndex() == 1 && info.satInfoComplete ) //signal
+  // {
+  //   mPlot->setAxisScale( QwtPlot::xBottom, 0, info.satellitesInView.size() );
+  // } //signal
 #ifdef WITH_QWTPOLAR
   if ( mStackedWidget->currentIndex() == 2 && info.satInfoComplete ) //satellites
   {
@@ -426,11 +427,34 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         QBrush symbolBrush( Qt::black );
         QSize markerSize( 9, 9 );
         QBrush textBgBrush( bg );
+        switch(currentInfo.satType)
+        {
+          case 'P':
+          case 'N':
+            symbolStyle = QwtSymbol::Ellipse;
+            break;
+          case 'L':
+            symbolStyle = QwtSymbol::Rect;
+            break;
+          case 'B':
+            symbolStyle = QwtSymbol::Diamond;
+            break;
+          case 'A':
+            symbolStyle = QwtSymbol::Triangle;
+            break;
+          case 'Q':
+            symbolStyle = QwtSymbol::Cross;
+            break;
+          default:
+            symbolStyle = QwtSymbol::Ellipse; 
+            break;
+        }
+        
 #if (QWT_POLAR_VERSION<0x010000)
-        mypMarker->setSymbol( QwtSymbol( QwtSymbol::Ellipse,
+        mypMarker->setSymbol( QwtSymbol( symbolStyle,
                                          symbolBrush, QPen( myColor ), markerSize ) );
 #else
-        mypMarker->setSymbol( new QwtSymbol( QwtSymbol::Ellipse,
+        mypMarker->setSymbol( new QwtSymbol( symbolStyle,
                                              symbolBrush, QPen( myColor ), markerSize ) );
 #endif
 
@@ -448,6 +472,7 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
 
   if ( mStackedWidget->currentIndex() == 1 && info.satInfoComplete ) //signal
   {
+    mPlot->setAxisScale( QwtPlot::xBottom, 0, info.satellitesInView.size() );
     mCurve->setSamples( data );
     mPlot->replot();
   } //signal
