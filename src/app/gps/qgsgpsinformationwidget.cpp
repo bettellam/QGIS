@@ -431,24 +431,23 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         QwtSymbol::Style symbolStyle;
         switch(currentInfo.satType)
         {
-          case 'P':
-          case 'N':
-            symbolStyle = QwtSymbol::Ellipse;
+          case "P":
+            symbolStyle = QwtSymbol::Ellipse; // GPS;
             break;
-          case 'L':
-            symbolStyle = QwtSymbol::Rect;
+          case "L":
+            symbolStyle = QwtSymbol::Rect; //GLONAS;
             break;
-          case 'B':
-            symbolStyle = QwtSymbol::Diamond;
+          case "B":
+            symbolStyle = QwtSymbol::Diamond; // BEIDOU;
             break;
-          case 'A':
-            symbolStyle = QwtSymbol::Triangle;
+          case "A":
+            symbolStyle = QwtSymbol::Triangle; // GALILEO;
             break;
-          case 'Q':
-            symbolStyle = QwtSymbol::Cross;
+          case "Q":
+            symbolStyle = QwtSymbol::Cross; // QZSS;
             break;
           default:
-            symbolStyle = QwtSymbol::Ellipse; 
+            symbolStyle = QwtSymbol::Ellipse; // N, S;
             break;
         }
         
