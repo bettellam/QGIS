@@ -419,6 +419,7 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         // QBrush symbolBrush( Qt::black );
         QSize markerSize( 9, 9 );
         QBrush textBgBrush( bg );
+        QBrush symbolBrush;
         
         QwtSymbol::Style symbolStyle;
         if ( currentInfo.satType == 'P' ) {
