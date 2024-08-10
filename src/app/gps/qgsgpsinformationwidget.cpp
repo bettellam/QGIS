@@ -423,18 +423,18 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         QwtSymbol::Style symbolStyle;
         if ( currentInfo.satType == 'P' ) {
           symbolStyle = QwtSymbol::Ellipse; // GPS;
-          QBrush symbolBrush( Qt::limegreen );
-          myColor = QColor( 50 , 205 , 20 ); //Qt::limegreen;
+          QBrush symbolBrush( QColor( 50 , 205 , 20 ) );
+          myColor = QColor( 50 , 205 , 20 ); //limegreen;
         }
         else if ( currentInfo.satType == 'L' ) {
           symbolStyle = QwtSymbol::Rect; // GLONASS;
-          QBrush symbolBrush( Qt::orange );
-          myColor = QColor( 255 , 165 , 0 ); //Qt::orange;
+          QBrush symbolBrush( QColor( 255 , 165 , 0 ) );
+          myColor = QColor( 255 , 165 , 0 ); //orange;
         }
         else if ( currentInfo.satType == 'B' ) {
           symbolStyle = QwtSymbol::Diamond; // BEIDOU;
-          QBrush symbolBrush( Qt::purple );
-          myColor = QColor( 128 , 0 , 128 ); //Qt::purple;
+          QBrush symbolBrush( QColor( 128 , 0 , 128 ) );
+          myColor = QColor( 128 , 0 , 128 ); //purple;
         }
         else if ( currentInfo.satType == 'A' ) {
           symbolStyle = QwtSymbol::Triangle; //GALILEO
@@ -448,13 +448,17 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         }
         else {
           symbolStyle = QwtSymbol::Ellipse; // N, S;
-          QBrush symbolBrush( Qt::black );
-          myColor = Qt::black;
+          QBrush symbolBrush( Qt::gray );
+          myColor = Qt::gray;
         }
         if ( currentInfo.signal < 30 ) //weak signal
         {
           QBrush symbolBrush( Qt::red );
           myColor = Qt::red;
+        }
+        if ( currentInfo.inUse  ) 
+        {
+          myColor = Qt::black;
         }
        
 #if (QWT_POLAR_VERSION<0x010000)
