@@ -415,37 +415,46 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         mypMarker->setPosition( QwtPointPolar( currentInfo.azimuth, currentInfo.elevation ) );
 #endif
 #endif
-        if ( currentInfo.signal < 30 ) //weak signal
-        {
-          myColor = Qt::red;
-        }
-        else
-        {
-          myColor = Qt::black; //strong signal
-        }
 #ifdef WITH_QWTPOLAR
-        QBrush symbolBrush( Qt::black );
+        // QBrush symbolBrush( Qt::black );
         QSize markerSize( 9, 9 );
         QBrush textBgBrush( bg );
         
         QwtSymbol::Style symbolStyle;
         if ( currentInfo.satType == 'P' ) {
           symbolStyle = QwtSymbol::Ellipse; // GPS;
+          QBrush symbolBrush( Qt::limegreen );
+          myColor = Qt::limegreen;
         }
         else if ( currentInfo.satType == 'L' ) {
           symbolStyle = QwtSymbol::Rect; // GLONASS;
+          QBrush symbolBrush( Qt::orange );
+          myColor = Qt::orange;
         }
         else if ( currentInfo.satType == 'B' ) {
           symbolStyle = QwtSymbol::Diamond; // BEIDOU;
+          QBrush symbolBrush( Qt::purple );
+          myColor = Qt::purple;
         }
         else if ( currentInfo.satType == 'A' ) {
           symbolStyle = QwtSymbol::Triangle; //GALILEO
+          QBrush symbolBrush( Qt::blue );
+          myColor = Qt::blue;
         }
         else if ( currentInfo.satType == 'Q' ) {
           symbolStyle = QwtSymbol::Cross; // QZSS
+          QBrush symbolBrush( Qt::magenta );
+          myColor = Qt::magenta;
         }
         else {
           symbolStyle = QwtSymbol::Ellipse; // N, S;
+          QBrush symbolBrush( Qt::black );
+          myColor = Qt::black;
+        }
+        if ( currentInfo.signal < 30 ) //weak signal
+        {
+          QBrush symbolBrush( Qt::red );
+          myColor = Qt::red;
         }
        
 #if (QWT_POLAR_VERSION<0x010000)
