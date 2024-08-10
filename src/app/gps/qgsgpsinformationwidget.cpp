@@ -464,7 +464,7 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
                                          symbolBrush, QPen( penColor ), markerSize ) );
 #else
         mypMarker->setSymbol( new QwtSymbol( symbolStyle,
-                                             symbolBrush, QPen( myColor ), markerSize ) );
+                                             symbolBrush, QPen( penColor ), markerSize ) );
 #endif
 
         mypMarker->setLabelAlignment( Qt::AlignHCenter | Qt::AlignTop );
