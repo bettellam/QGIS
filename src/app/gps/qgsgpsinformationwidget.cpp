@@ -403,6 +403,7 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
       QColor bg( Qt::white ); // moved several items outside of the following if block to minimize loop time
       bg.setAlpha( 200 );
       QColor myColor;
+      QColor penColor;
 
       // Add a marker to the polar plot
       if ( currentInfo.id > 0 )       // don't show satellite if id=0 (no satellite indication)
@@ -446,20 +447,21 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
           symbolStyle = QwtSymbol::Ellipse; // N, S;
           myColor = Qt::gray;
         }
+        penColor = myColor;
         symbolBrush = QBrush( myColor );
         
         if ( currentInfo.signal < 30 ) //weak signal
         {
-          myColor = Qt::red;
+          penColor = Qt::red; // red border
         }
         if ( currentInfo.inUse  ) 
         {
-          myColor = Qt::black;
+          penColor = Qt::black; // black border
         }
         
 #if (QWT_POLAR_VERSION<0x010000)
         mypMarker->setSymbol( QwtSymbol( symbolStyle,
-                                         symbolBrush, QPen( myColor ), markerSize ) );
+                                         symbolBrush, QPen( penColor ), markerSize ) );
 #else
         mypMarker->setSymbol( new QwtSymbol( symbolStyle,
                                              symbolBrush, QPen( myColor ), markerSize ) );
