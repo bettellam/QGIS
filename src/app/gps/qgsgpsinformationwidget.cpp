@@ -424,17 +424,17 @@ void QgsGpsInformationWidget::displayGPSInformation( const QgsGpsInformation &in
         if ( currentInfo.satType == 'P' ) {
           symbolStyle = QwtSymbol::Ellipse; // GPS;
           QBrush symbolBrush( Qt::limegreen );
-          myColor = Qt::QColor( 50 , 205 , 20 ); //Qt::limegreen;
+          myColor = QColor( 50 , 205 , 20 ); //Qt::limegreen;
         }
         else if ( currentInfo.satType == 'L' ) {
           symbolStyle = QwtSymbol::Rect; // GLONASS;
           QBrush symbolBrush( Qt::orange );
-          myColor = Qt::QColor( 255 , 165 , 0 ); //Qt::orange;
+          myColor = QColor( 255 , 165 , 0 ); //Qt::orange;
         }
         else if ( currentInfo.satType == 'B' ) {
           symbolStyle = QwtSymbol::Diamond; // BEIDOU;
           QBrush symbolBrush( Qt::purple );
-          myColor = Qt::QColor( 128 , 0 , 128 ); //Qt::purple;
+          myColor = QColor( 128 , 0 , 128 ); //Qt::purple;
         }
         else if ( currentInfo.satType == 'A' ) {
           symbolStyle = QwtSymbol::Triangle; //GALILEO
